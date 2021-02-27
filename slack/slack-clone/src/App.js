@@ -13,8 +13,9 @@ function App() {
 
 const [rooms,setRooms] = useState([])
 
-//Snapshot = foto van database
+
   const getChannels = () => {
+    //Snapshot = foto van database
     Db.collection('rooms').onSnapshot((snapshot) => {
       // docs = voor data te krijgen
       setRooms(snapshot.docs.map((doc) => {
@@ -28,8 +29,7 @@ useEffect(() => {
   getChannels();
 }, [])
 
-console.log(rooms);
-
+///console.log(rooms);
 
   return (
     <div className="App">
@@ -37,7 +37,7 @@ console.log(rooms);
         <Container>
           <Header/>
           <Main>
-            <Sidebar/>
+            <Sidebar rooms={rooms}/>
             <Switch>
 
               <Route path="/room">
