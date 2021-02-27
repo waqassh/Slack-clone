@@ -5,8 +5,32 @@ import Login from './components/Login';
 import styled from 'styled-components';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
+import Db from './Firebase';
+import {useEffect, useState} from 'react';
+
 
 function App() {
+
+const [rooms,setRooms] = useState([])
+
+//Snapshot = foto van database
+  const getChannels = () => {
+    Db.collection('rooms').onSnapshot((snapshot) => {
+      // docs = voor data te krijgen
+      setRooms(snapshot.docs.map((doc) => {
+        return { id: doc.id, name: doc.data().name }
+      }))
+    })
+
+  }
+  
+useEffect(() => {
+  getChannels();
+}, [])
+
+console.log(rooms);
+
+
   return (
     <div className="App">
       <Router>
