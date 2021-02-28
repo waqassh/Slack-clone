@@ -82,7 +82,7 @@ const WorkspaceContainer = styled.div`
     align-items: center;
     padding-left: 19px;
     justify-content: space-between;
-    border-bottmom: 1px solid #532753;
+    border-bottom: 1px solid #532753;
 
     `
 

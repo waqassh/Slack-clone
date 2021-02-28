@@ -50,7 +50,7 @@ const Main = styled.div`
 
 const Search = styled.div`
     width:100%;
-    box-shadow: insert 0 0 0 1px rgb(104 74 104);
+    box-shadow: inset 0 0 0 1px rgb(104 74 104);
     border-radius: 6px;
     display: flex;
     align-items: center;

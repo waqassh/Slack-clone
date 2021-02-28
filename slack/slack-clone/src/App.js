@@ -77,5 +77,5 @@ grid-template-rows: 38px auto;
 const Main = styled.div`
 
 display: grid;
-grid-template-columns: 260px auto
+grid-template-columns: 260px auto;
 `
