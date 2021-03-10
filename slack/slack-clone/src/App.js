@@ -7,11 +7,13 @@ import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import Db from './Firebase';
 import {useEffect, useState} from 'react';
+import {auth, provider} from "./Firebase";
 
 
 function App() {
 
 const [rooms,setRooms] = useState([])
+const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
 
 
   const getChannels = () => {
@@ -24,40 +26,48 @@ const [rooms,setRooms] = useState([])
     })
 
   }
-  
-useEffect(() => {
-  getChannels();
-}, [])
 
-///console.log(rooms);
+    const signOut = () => {
+      auth.signOut().then(() => {
+        localStorage.removeItem("user");
+        setUser(null);
+      })
+    }
+   
+    useEffect(() => {
+      getChannels();
+    }, [])
+
+console.log("User in app State",user);
 
   return (
     <div className="App">
       <Router>
-        <Container>
-          <Header/>
-          <Main>
-            <Sidebar rooms={rooms}/>
-            <Switch>
-
-              <Route path="/room">
-                <Chat>
-
-                </Chat>
-              </Route>
-
-              <Route path = "/">
-                  <Login>
-
-                  </Login>
-              </Route>
-
-            </Switch>
-          </Main>
-
+        {
+            !user ?
+            <Login setUser= {setUser}/>
+            :
           
-        </Container>
-       
+          <Container>
+            <Header signOut={signOut} user= {user}/>
+            <Main>
+              <Sidebar rooms={rooms}/>
+              <Switch>
+
+                <Route path="/room/:channelId">
+                  <Chat user={user}>
+
+                  </Chat>
+                </Route>
+                <Route path="/">
+                    Select or creat channel
+                </Route>
+              </Switch>
+            </Main>
+
+            
+          </Container>
+       }
       </Router>
 
     </div>
@@ -71,7 +81,7 @@ width: 100%;
 height: 100vh;
 
 display: grid;
-grid-template-rows: 38px auto;
+grid-template-rows: 38px minmax(0, 1fr);
 `
 
 const Main = styled.div`

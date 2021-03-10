@@ -4,9 +4,20 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import {siderbarItems} from '../data/SidebarData';
 import AddIcon from '@material-ui/icons/Add';
 import Db from '../Firebase';
+import {useHistory, usehistory} from 'react-router-dom';
+
 
 
 function Sidebar(props) {
+    const history = useHistory();
+
+    const goToChannel = (id) => {
+        if(id){
+            history.push(`/room/${id}`)
+        }
+    }
+
+
         ///The prompt() method displays a dialog box that prompts the visitor for input
     const AddChannel = () => {
         const Name = prompt("Enter channel name");
@@ -52,15 +63,12 @@ function Sidebar(props) {
 
                     {
                         props.rooms.map(item => (
-                            <Channel>
+                            <Channel onClick={() => goToChannel(item.id)}>
                                 # {item.name}
                             </Channel>
                         ))
                     }
 
-
-
-                   
                 </ChannelsList>
 
             </ChannelsContainer>

@@ -15,4 +15,10 @@ const firebaseConfig = {
     //databse toekennen 
     const Db = firebaseApp.firestore();
     //exporten van database om gebruik te maken 
+
+    const auth = firebase.auth();
+    const provider = new firebase.auth.GoogleAuthProvider();
+
+
+export {auth, provider}
 export default Db;
